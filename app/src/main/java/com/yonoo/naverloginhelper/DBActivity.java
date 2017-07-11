@@ -7,9 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Created by Naver on 2017-07-11.
- */
 
 public class DBActivity extends AppCompatActivity {
 

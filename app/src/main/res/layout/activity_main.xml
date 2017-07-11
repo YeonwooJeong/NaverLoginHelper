@@ -21,4 +21,10 @@
         android:onClick="mStop"
         android:text="종료하기" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="mList"
+        android:text="계정목록" />
+
 </LinearLayout>

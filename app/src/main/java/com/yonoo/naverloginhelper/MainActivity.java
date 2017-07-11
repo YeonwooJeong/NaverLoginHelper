@@ -48,5 +48,8 @@ public class MainActivity extends Activity {
         stopService(new Intent(this, AlwaysTopServiceTouch.class));
     }
 
+    public void mList(View v) {
+        startActivity(new Intent(this, DBActivity.class));
+    }
 }
 
