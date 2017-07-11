@@ -22,12 +22,12 @@ public class MainActivity extends Activity {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(MainActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "다른 앱 위에 그리기 권한 허가", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(MainActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "다른 앱 위에 그리기 권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
         };
 
