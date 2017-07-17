@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class AlwaysTopServiceTouch extends Service {
 	private View mView;
 	private WindowManager mManager;
@@ -21,13 +23,14 @@ public class AlwaysTopServiceTouch extends Service {
 	private int mViewX, mViewY;
 
 	private boolean isMove = false;
-	public static MainActivity main = new MainActivity();
-	Intent it = new Intent(this, DBActivity.class);
+
+
+
 
 	private OnTouchListener mViewTouchListener = new OnTouchListener() {
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-
+			Intent it = new Intent(v.getContext(), DBActivity.class);
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					isMove = false;
@@ -43,7 +46,7 @@ public class AlwaysTopServiceTouch extends Service {
 					if (!isMove) {
 //						Toast.makeText(getApplicationContext(), "???",
 //								Toast.LENGTH_SHORT).show();
-						main.startActivity(it);
+						startActivity(it.addFlags(FLAG_ACTIVITY_NEW_TASK));
 					}
 
 					break;
