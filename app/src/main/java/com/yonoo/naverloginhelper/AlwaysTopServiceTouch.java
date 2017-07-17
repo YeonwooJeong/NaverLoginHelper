@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 public class AlwaysTopServiceTouch extends Service {
 	private View mView;
@@ -22,6 +21,8 @@ public class AlwaysTopServiceTouch extends Service {
 	private int mViewX, mViewY;
 
 	private boolean isMove = false;
+	public static MainActivity main = new MainActivity();
+	Intent it = new Intent(this, DBActivity.class);
 
 	private OnTouchListener mViewTouchListener = new OnTouchListener() {
 		@Override
@@ -40,8 +41,9 @@ public class AlwaysTopServiceTouch extends Service {
 
 				case MotionEvent.ACTION_UP:
 					if (!isMove) {
-						Toast.makeText(getApplicationContext(), "???",
-								Toast.LENGTH_SHORT).show();
+//						Toast.makeText(getApplicationContext(), "???",
+//								Toast.LENGTH_SHORT).show();
+						main.startActivity(it);
 					}
 
 					break;
