@@ -5,7 +5,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
+    public static ArrayList<String> list = new ArrayList<>() ;
 
     // DBHelper ???? ??? DB ??? ?? ??? ??
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -49,23 +52,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String getResult() {
+    public ArrayList getResult() {
         // ??? ???? DB ??
         SQLiteDatabase db = getReadableDatabase();
-        String result = "";
 
         // DB? ?? ???? ?? ???? ?? Cursor? ???? ???? ?? ?? ??? ??
         Cursor cursor = db.rawQuery("SELECT * FROM LOGIN", null);
         while (cursor.moveToNext()) {
-            result += cursor.getString(0)
-                    + " : "
-                    + cursor.getString(1)
-                    + " | "
-                    + cursor.getString(2)
-                    + "\n";
+            list.add(cursor.getString(1));
         }
 
-        return result;
+        return list;
     }
 }
 

@@ -25,12 +25,12 @@ public class AlwaysTopServiceTouch extends Service {
 	private boolean isMove = false;
 
 
-
-
 	private OnTouchListener mViewTouchListener = new OnTouchListener() {
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
+
 			Intent it = new Intent(v.getContext(), DBActivity.class);
+
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					isMove = false;
