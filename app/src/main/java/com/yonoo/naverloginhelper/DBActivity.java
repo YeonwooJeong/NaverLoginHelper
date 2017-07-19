@@ -70,7 +70,7 @@ public class DBActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView parent, View v, int position, long id) {
 
                         // get TextView's Text.
-                        String strText = (String) parent.getItemAtPosition(position) ;
+//                        String strText = (String) parent.getItemAtPosition(position) ;
 
                         // TODO : use strText
                     }

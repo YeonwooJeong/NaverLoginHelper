@@ -52,7 +52,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public List getAllData() { StringBuffer sb = new StringBuffer(); sb.append(" SELECT _ID, ID, PW FROM LOGIN ");
+    public List getAllData() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(" SELECT _ID, ID, PW FROM LOGIN ");
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(sb.toString(), null);
         List list = new ArrayList();
