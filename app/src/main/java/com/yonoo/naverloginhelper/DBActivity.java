@@ -4,98 +4,80 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import java.util.List;
 
 
 public class DBActivity extends AppCompatActivity {
 //    public static ArrayList<String> list = new ArrayList<>() ;
 
+    private Button btnInsertDatabase,btnSelectAllData;
+    private ListView listView;
+    private DBHelper dbHelper;
 
-    public static ListView listview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.db_layout);
 
-        final DBHelper dbHelper = new DBHelper(getApplicationContext(), "LOGIN.db", null, 1);
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, dbHelper.getResult()) ;
-//        list.add(dbHelper.getResult());
-        for(int i =0 ; dbHelper.getResult().size() > 0 ;i++){
-
-        }
-        listview = (ListView) findViewById(R.id.list_view) ;
-        listview.setAdapter(adapter) ;
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-
-                // get TextView's Text.
-                String strText = (String) parent.getItemAtPosition(position) ;
-
-                // TODO : use strText
-            }
-        }) ;
+        dbHelper = new DBHelper( DBActivity.this, "LOGIN", null, 1);
+        dbHelper.testDB();
 
 
+        btnInsertDatabase = (Button) findViewById(R.id.insert);
+        btnInsertDatabase.setOnClickListener(new View.OnClickListener()
 
-        // ???? ?? ?? ??? ??
-//        final TextView result = (TextView) findViewById(R.id.result);
+        {
+            @Override public void onClick (View v){
+                final EditText etId = (EditText) findViewById(R.id.id);
+                etId.setHint("ID을 입력하세요.");
+                final EditText etPw = (EditText) findViewById(R.id.pw);
+                etPw.setHint("PW를 입력하세요.");
 
-        final EditText etId = (EditText) findViewById(R.id.id);
-        final EditText etPw = (EditText) findViewById(R.id.pw);
-
-
-        // DB? ??? ??
-        Button insert = (Button) findViewById(R.id.insert);
-        insert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 String id = etId.getText().toString();
                 String pw = etPw.getText().toString();
-
-                dbHelper.insert(id, pw);
-//                result.setText(dbHelper.getResult());
-
+                if (dbHelper == null) {
+                    dbHelper = new DBHelper(DBActivity.this, "TEST", null, 1);
+                }
+                Login login = new Login();
+                login.setId(id);
+                login.setPw(pw);
+                dbHelper.addLogin(login);
             }
         });
 
-        // DB? ?? ??? ??
-        Button update = (Button) findViewById(R.id.update);
-        update.setOnClickListener(new View.OnClickListener() {
+        listView = (ListView) findViewById(R.id.list_view);
+        btnSelectAllData = (Button) findViewById(R.id.select);
+        btnSelectAllData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = etId.getText().toString();
-                String pw = etPw.getText().toString();
+                // ListView를 보여준다.
+                listView.setVisibility(View.VISIBLE);
+                // DB Helper가 Null이면 초기화 시켜준다.
+                if (dbHelper == null) {
+                    dbHelper = new DBHelper(DBActivity.this, "TEST", null, 1);
+                }
+                // 1. Person 데이터를 모두 가져온다.
+                List list = dbHelper.getAllData();
+                // 2. ListView에 Person 데이터를 모두 보여준다.
+                listView.setAdapter(new LoginListAdapter(list, DBActivity.this));
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView parent, View v, int position, long id) {
 
-                dbHelper.update(id, pw);
-//                result.setText(dbHelper.getResult());
-            }
-        });
+                        // get TextView's Text.
+                        String strText = (String) parent.getItemAtPosition(position) ;
 
-        // DB? ?? ??? ??
-        Button delete = (Button) findViewById(R.id.delete);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String pw = etPw.getText().toString();
-
-                dbHelper.delete(pw);
-//                result.setText(dbHelper.getResult());
-            }
-        });
-
-        // DB? ?? ??? ??
-        Button select = (Button) findViewById(R.id.select);
-        select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                result.setText(dbHelper.getResult());
+                        // TODO : use strText
+                    }
+                }) ;
             }
         });
     }
+
+
 }
