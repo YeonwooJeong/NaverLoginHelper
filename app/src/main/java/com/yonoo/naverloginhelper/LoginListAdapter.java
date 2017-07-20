@@ -51,22 +51,22 @@ class LoginListAdapter extends BaseAdapter{
             ((LinearLayout) convertView).addView(tvName);
             ((LinearLayout) convertView).addView(tvPw);
             holder = new Holder();
-            holder.tvId = tvId;
-            holder.tvName = tvName;
+            holder.tv_id = tvId;
+            holder.tvId = tvName;
             holder.tvPw = tvPw;
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
         Login login = (Login) getItem(position);
-        holder.tvId.setText(login.get_id() + "");
-        holder.tvName.setText(login.getId());
+        holder.tv_id.setText(login.get_id() + "");
+        holder.tvId.setText(login.getId());
         holder.tvPw.setText(login.getPw() + "");
         return convertView;
     }
     private class Holder {
+        public TextView tv_id;
         public TextView tvId;
-        public TextView tvName;
         public TextView tvPw;
     }
 }
