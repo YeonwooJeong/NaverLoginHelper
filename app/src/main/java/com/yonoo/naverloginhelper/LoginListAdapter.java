@@ -65,6 +65,7 @@ class LoginListAdapter extends BaseAdapter{
         return convertView;
     }
     private class Holder {
+        //기능확인
         public TextView tv_id;
         public TextView tvId;
         public TextView tvPw;
