@@ -1,14 +1,20 @@
 package com.yonoo.naverloginhelper;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 
 class LoginListAdapter extends BaseAdapter{
@@ -60,13 +66,53 @@ class LoginListAdapter extends BaseAdapter{
             holder = (Holder) convertView.getTag();
         }
         System.out.println("position"+position);
-        Login login = (Login) getItem(position);
+        final Login login = (Login) getItem(position);
+        holder.tv_id.setTextSize(20);
         holder.tv_id.setText(login.get_id() + "");
-        holder.tv_id.setTextSize(10);
-        holder.tvId.setText(login.getId());
-        holder.tv_id.setTextSize(10);
-        holder.tvPw.setText(login.getPw() + "");
-        holder.tv_id.setTextSize(10);
+
+
+        holder.tvId.setTextSize(20);
+        holder.tvId.setText(login.getId() + "   |");
+        final String id = login.getId();
+        holder.tvId.setOnTouchListener(new View.OnTouchListener(){   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("ID",id);
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(context,"ID가 복사되었습니다.",Toast.LENGTH_SHORT).show();
+                }
+
+                if(event.getAction()==MotionEvent.ACTION_UP){
+                }
+                return true;
+            }
+        });
+
+        holder.tvPw.setTextSize(20);
+        holder.tvPw.setText(login.getPw() + "   ");
+        final String pw = login.getPw();
+        holder.tvPw.setOnTouchListener(new View.OnTouchListener(){   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // TODO Auto-generated method stub
+                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("PW",pw);
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(context,"PW가 복사되었습니다.",Toast.LENGTH_SHORT).show();
+                }
+
+                if(event.getAction()==MotionEvent.ACTION_UP){
+                }
+                return true;
+            }
+        });
+
         return convertView;
     }
     private class Holder {
