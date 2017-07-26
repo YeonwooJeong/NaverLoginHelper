@@ -4,5 +4,10 @@
     <string name="app_name">NaverLoginHelper</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="insert">추가되었습니다</string>
+    <string name="make">Table 생성완료</string>
+    <string name="upgrade">버전이 올라갔습니다</string>
+    <string name="delete">삭제</string>
+
 
 </resources>

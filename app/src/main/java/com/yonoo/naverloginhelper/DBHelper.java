@@ -24,13 +24,13 @@ public class DBHelper extends SQLiteOpenHelper {
         sb.append(" ID TEXT, ");
         sb.append(" PW TEXT ) ");
         db.execSQL(sb.toString());
-        Toast.makeText(context, "Table ????", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.make, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Toast.makeText(context, "??? ??????.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.upgrade, Toast.LENGTH_SHORT).show();
     }
 
     public void testDB() {
@@ -48,7 +48,14 @@ public class DBHelper extends SQLiteOpenHelper {
                         login.getId(),
                         login.getPw(),
                         });;
-        Toast.makeText(context, "Insert ??", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.insert, Toast.LENGTH_SHORT).show();
+    }
+
+    public void delete(int position) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM LOGIN WHERE _ID='" + position + "';");
+        db.close();
+
     }
 
 

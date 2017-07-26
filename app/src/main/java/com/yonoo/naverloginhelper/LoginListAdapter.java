@@ -3,11 +3,14 @@ package com.yonoo.naverloginhelper;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,8 @@ class LoginListAdapter extends BaseAdapter{
     int i=0;
     private List list;
     private Context context;
+    private DBHelper dbHelper;
+    private DBActivity dbActivity;
 
     public LoginListAdapter(List list, Context context) {
         this.list = list;
@@ -42,9 +47,25 @@ class LoginListAdapter extends BaseAdapter{
 
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = null;
+        final Login login = (Login) getItem(position);
         if (convertView == null) {
             convertView = new LinearLayout(context);
             ((LinearLayout) convertView).setOrientation(LinearLayout.HORIZONTAL);
+
+            Button delete = new Button (context);
+            delete.setText(R.string.delete);
+            delete.setTextSize(20);
+            delete.setGravity(Gravity.RIGHT);
+            delete.setOnClickListener(
+                    new Button.OnClickListener() {
+                        public void onClick(View v) {
+
+                            dbActivity.DeleteList();
+                        }
+                    }
+            );
+
+
             TextView tvId = new TextView(context);
             tvId.setPadding(10, 0, 20, 0);
             tvId.setTextColor(Color.rgb(0, 0, 0));
@@ -57,6 +78,7 @@ class LoginListAdapter extends BaseAdapter{
             ((LinearLayout) convertView).addView(tvId);
             ((LinearLayout) convertView).addView(tvName);
             ((LinearLayout) convertView).addView(tvPw);
+            ((LinearLayout) convertView).addView(delete);
             holder = new Holder();
             holder.tv_id = tvId;
             holder.tvId = tvName;
@@ -66,7 +88,7 @@ class LoginListAdapter extends BaseAdapter{
             holder = (Holder) convertView.getTag();
         }
         System.out.println("position"+position);
-        final Login login = (Login) getItem(position);
+
         holder.tv_id.setTextSize(20);
         holder.tv_id.setText(login.get_id() + "");
 
@@ -84,6 +106,11 @@ class LoginListAdapter extends BaseAdapter{
                     ClipData clipData = ClipData.newPlainText("ID",id);
                     clipboardManager.setPrimaryClip(clipData);
                     Toast.makeText(context,"ID가 복사되었습니다.",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    context.startActivity(intent);
+
                 }
 
                 if(event.getAction()==MotionEvent.ACTION_UP){
@@ -105,6 +132,10 @@ class LoginListAdapter extends BaseAdapter{
                     ClipData clipData = ClipData.newPlainText("PW",pw);
                     clipboardManager.setPrimaryClip(clipData);
                     Toast.makeText(context,"PW가 복사되었습니다.",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    context.startActivity(intent);
                 }
 
                 if(event.getAction()==MotionEvent.ACTION_UP){
@@ -121,6 +152,7 @@ class LoginListAdapter extends BaseAdapter{
         public TextView tvId;
         public TextView tvPw;
     }
+
 }
 
 

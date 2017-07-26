@@ -12,13 +12,11 @@ import java.util.List;
 
 
 public class DBActivity extends AppCompatActivity {
-//    public static ArrayList<String> list = new ArrayList<>() ;
 
     private Button btnInsertDatabase,btnSelectAllData;
     private ListView listView;
     private DBHelper dbHelper;
 
-    LoginListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +25,10 @@ public class DBActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper( DBActivity.this, "LOGIN", null, 1);
         dbHelper.testDB();
+
+        listView = (ListView) findViewById(R.id.list_view);
+        // ListView를 보여준다.
+        SelectList();
 
 
         btnInsertDatabase = (Button) findViewById(R.id.insert);
@@ -48,38 +50,59 @@ public class DBActivity extends AppCompatActivity {
                 login.setId(id);
                 login.setPw(pw);
                 dbHelper.addLogin(login);
+                SelectList();
             }
         });
 
-        listView = (ListView) findViewById(R.id.list_view);
         btnSelectAllData = (Button) findViewById(R.id.select);
         btnSelectAllData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // ListView를 보여준다.
-                listView.setVisibility(View.VISIBLE);
-                // DB Helper가 Null이면 초기화 시켜준다.
-                if (dbHelper == null) {
-                    dbHelper = new DBHelper(DBActivity.this, "TEST", null, 1);
-                }
-                // 1. Person 데이터를 모두 가져온다.
-                List list = dbHelper.getAllData();
-                // 2. ListView에 Person 데이터를 모두 보여준다.
-                listView.setAdapter(new LoginListAdapter(list, DBActivity.this));
+               SelectList();
+            }
+        });
+    }
 
-                System.out.println("갯수"+listView.getAdapter().getCount());
-                //6으로 나옵니다.
+    public void DeleteList(){
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView parent, View v, int position, long id) {
+        int count, checked ;
+        count = listView.getAdapter().getCount();
 
-                        // get TextView's Text.
+        if (count > 0) {
+            // 현재 선택된 아이템의 position 획득.
+            checked = listView.getCheckedItemPosition();
+
+            if (checked > -1 && checked < count) {
+                // 아이템 삭제
+                dbHelper.delete(count);
+
+                // listview 선택 초기화.
+                listView.clearChoices();
+
+                // listview 갱신.
+                SelectList();
+            }
+        }
+    }
+
+    public void SelectList(){
+        listView.setVisibility(View.VISIBLE);
+        // DB Helper가 Null이면 초기화 시켜준다.
+        if (dbHelper == null) {
+            dbHelper = new DBHelper(DBActivity.this, "TEST", null, 1);
+        }
+        // 1. Person 데이터를 모두 가져온다.
+        List list = dbHelper.getAllData();
+        // 2. ListView에 Person 데이터를 모두 보여준다.
+        listView.setAdapter(new LoginListAdapter(list, DBActivity.this));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+
+                // get TextView's Text.
 //                        String strText = (String) parent.getItemAtPosition(position) ;
 
-                        // TODO : use strText
-                    }
-                }) ;
+                // TODO : use strText
             }
         });
     }
