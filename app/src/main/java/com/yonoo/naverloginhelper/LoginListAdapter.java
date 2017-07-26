@@ -12,7 +12,7 @@ import java.util.List;
 
 
 class LoginListAdapter extends BaseAdapter{
-
+    int i=0;
     private List list;
     private Context context;
 
@@ -30,6 +30,7 @@ class LoginListAdapter extends BaseAdapter{
     }
 
     public long getItemId(int position) {
+
         return position;
     }
 
@@ -58,10 +59,14 @@ class LoginListAdapter extends BaseAdapter{
         } else {
             holder = (Holder) convertView.getTag();
         }
+        System.out.println("position"+position);
         Login login = (Login) getItem(position);
         holder.tv_id.setText(login.get_id() + "");
+        holder.tv_id.setTextSize(10);
         holder.tvId.setText(login.getId());
+        holder.tv_id.setTextSize(10);
         holder.tvPw.setText(login.getPw() + "");
+        holder.tv_id.setTextSize(10);
         return convertView;
     }
     private class Holder {

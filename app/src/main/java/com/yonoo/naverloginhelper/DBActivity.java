@@ -18,6 +18,7 @@ public class DBActivity extends AppCompatActivity {
     private ListView listView;
     private DBHelper dbHelper;
 
+    LoginListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,10 @@ public class DBActivity extends AppCompatActivity {
                 List list = dbHelper.getAllData();
                 // 2. ListView에 Person 데이터를 모두 보여준다.
                 listView.setAdapter(new LoginListAdapter(list, DBActivity.this));
+
+                System.out.println("갯수"+listView.getAdapter().getCount());
+                //6으로 나옵니다.
+
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView parent, View v, int position, long id) {
