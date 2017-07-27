@@ -107,7 +107,7 @@ class LoginListAdapter extends BaseAdapter {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
                     ClipData clipData = ClipData.newPlainText("ID", id);
                     clipboardManager.setPrimaryClip(clipData);
@@ -133,7 +133,7 @@ class LoginListAdapter extends BaseAdapter {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
                     ClipData clipData = ClipData.newPlainText("PW", pw);
                     clipboardManager.setPrimaryClip(clipData);
