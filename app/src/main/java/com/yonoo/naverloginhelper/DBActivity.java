@@ -63,18 +63,18 @@ public class DBActivity extends AppCompatActivity {
         });
     }
 
-    public void DeleteList(){
+    public void DeleteList(int position){
 
         int count, checked ;
-        count = listView.getAdapter().getCount();
+//        count = listView.getAdapter().getCount();
 
-        if (count > 0) {
+        if (position > 0) {
             // 현재 선택된 아이템의 position 획득.
             checked = listView.getCheckedItemPosition();
 
-            if (checked > -1 && checked < count) {
+            if (checked > -1 && checked < position) {
                 // 아이템 삭제
-                dbHelper.delete(count);
+                dbHelper.delete(position);
 
                 // listview 선택 초기화.
                 listView.clearChoices();

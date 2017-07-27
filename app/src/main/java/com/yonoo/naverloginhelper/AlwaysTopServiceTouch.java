@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-
 public class AlwaysTopServiceTouch extends Service {
 	private View mView;
 	private WindowManager mManager;
 	private WindowManager.LayoutParams mParams;
+	Context context = this;
+
+	ListActivity listActivity = new ListActivity();
+
 
 	private float mTouchX, mTouchY;
 	private int mViewX, mViewY;
@@ -44,9 +46,27 @@ public class AlwaysTopServiceTouch extends Service {
 
 				case MotionEvent.ACTION_UP:
 					if (!isMove) {
-//						Toast.makeText(getApplicationContext(), "???",
-//								Toast.LENGTH_SHORT).show();
-						startActivity(it.addFlags(FLAG_ACTIVITY_NEW_TASK));
+//						startActivity(it.addFlags(FLAG_ACTIVITY_NEW_TASK));
+
+						Intent intent = new Intent(context, ListActivity.class);
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						context.startActivity(intent);
+
+
+
+
+//						LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//						View view = inflater.inflate(R.layout.list, null);
+//
+//
+//						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(listActivity);
+//
+//						alertDialogBuilder.setTitle("??");
+//						alertDialogBuilder
+//								.setView(view)
+//								.setCancelable(false);
+//						dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+
 					}
 
 					break;

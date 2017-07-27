@@ -20,8 +20,8 @@ import java.util.List;
 import static android.content.Context.CLIPBOARD_SERVICE;
 
 
-class LoginListAdapter extends BaseAdapter{
-    int i=0;
+class LoginListAdapter extends BaseAdapter {
+    int i = 0;
     private List list;
     private Context context;
     private DBHelper dbHelper;
@@ -45,22 +45,24 @@ class LoginListAdapter extends BaseAdapter{
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+
+    public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder = null;
         final Login login = (Login) getItem(position);
         if (convertView == null) {
             convertView = new LinearLayout(context);
             ((LinearLayout) convertView).setOrientation(LinearLayout.HORIZONTAL);
 
-            Button delete = new Button (context);
+            ((LinearLayout) convertView).setGravity(LinearLayout.HORIZONTAL);
+
+            Button delete = new Button(context);
             delete.setText(R.string.delete);
-            delete.setTextSize(20);
-            delete.setGravity(Gravity.RIGHT);
+            delete.setTextSize(15);
             delete.setOnClickListener(
                     new Button.OnClickListener() {
                         public void onClick(View v) {
-
-                            dbActivity.DeleteList();
+                            System.out.println("Position"+position);
+                            dbActivity.DeleteList(position);
                         }
                     }
             );
@@ -68,12 +70,15 @@ class LoginListAdapter extends BaseAdapter{
 
             TextView tvId = new TextView(context);
             tvId.setPadding(10, 0, 20, 0);
+            tvId.setGravity(Gravity.LEFT);
             tvId.setTextColor(Color.rgb(0, 0, 0));
             TextView tvName = new TextView(context);
             tvName.setPadding(20, 0, 20, 0);
+            tvName.setGravity(Gravity.LEFT);
             tvName.setTextColor(Color.rgb(0, 0, 0));
             TextView tvPw = new TextView(context);
             tvPw.setPadding(20, 0, 20, 0);
+            tvPw.setGravity(Gravity.LEFT);
             tvPw.setTextColor(Color.rgb(0, 0, 0));
             ((LinearLayout) convertView).addView(tvId);
             ((LinearLayout) convertView).addView(tvName);
@@ -87,7 +92,7 @@ class LoginListAdapter extends BaseAdapter{
         } else {
             holder = (Holder) convertView.getTag();
         }
-        System.out.println("position"+position);
+        System.out.println("position" + position);
 
         holder.tv_id.setTextSize(20);
         holder.tv_id.setText(login.get_id() + "");
@@ -96,16 +101,16 @@ class LoginListAdapter extends BaseAdapter{
         holder.tvId.setTextSize(20);
         holder.tvId.setText(login.getId() + "   |");
         final String id = login.getId();
-        holder.tvId.setOnTouchListener(new View.OnTouchListener(){   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
+        holder.tvId.setOnTouchListener(new View.OnTouchListener() {   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
-                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
-                    ClipData clipData = ClipData.newPlainText("ID",id);
+                    ClipData clipData = ClipData.newPlainText("ID", id);
                     clipboardManager.setPrimaryClip(clipData);
-                    Toast.makeText(context,"ID가 복사되었습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "ID가 복사되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_MAIN);
                     intent.addCategory(Intent.CATEGORY_HOME);
@@ -113,7 +118,7 @@ class LoginListAdapter extends BaseAdapter{
 
                 }
 
-                if(event.getAction()==MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                 }
                 return true;
             }
@@ -122,30 +127,33 @@ class LoginListAdapter extends BaseAdapter{
         holder.tvPw.setTextSize(20);
         holder.tvPw.setText(login.getPw() + "   ");
         final String pw = login.getPw();
-        holder.tvPw.setOnTouchListener(new View.OnTouchListener(){   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
+        holder.tvPw.setOnTouchListener(new View.OnTouchListener() {   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // TODO Auto-generated method stub
-                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
-                    ClipData clipData = ClipData.newPlainText("PW",pw);
+                    ClipData clipData = ClipData.newPlainText("PW", pw);
                     clipboardManager.setPrimaryClip(clipData);
-                    Toast.makeText(context,"PW가 복사되었습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "PW가 복사되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_MAIN);
                     intent.addCategory(Intent.CATEGORY_HOME);
                     context.startActivity(intent);
                 }
 
-                if(event.getAction()==MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                 }
                 return true;
             }
         });
 
         return convertView;
+
+
     }
+
     private class Holder {
         //기능확인
         public TextView tv_id;
