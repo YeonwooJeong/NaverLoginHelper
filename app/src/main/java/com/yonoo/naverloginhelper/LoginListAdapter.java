@@ -57,7 +57,8 @@ class LoginListAdapter extends BaseAdapter {
 
             Button delete = new Button(context);
             delete.setText(R.string.delete);
-            delete.setTextSize(15);
+            delete.setTextSize(13);
+            delete.setPadding(2, 0, 2, 0);
             delete.setOnClickListener(
                     new Button.OnClickListener() {
                         public void onClick(View v) {
@@ -98,7 +99,7 @@ class LoginListAdapter extends BaseAdapter {
         holder.tv_id.setText(login.get_id() + "");
 
 
-        holder.tvId.setTextSize(20);
+        holder.tvId.setTextSize(15);
         holder.tvId.setText(login.getId() + "   |");
         final String id = login.getId();
         holder.tvId.setOnTouchListener(new View.OnTouchListener() {   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
@@ -124,7 +125,7 @@ class LoginListAdapter extends BaseAdapter {
             }
         });
 
-        holder.tvPw.setTextSize(20);
+        holder.tvPw.setTextSize(15);
         holder.tvPw.setText(login.getPw() + "   ");
         final String pw = login.getPw();
         holder.tvPw.setOnTouchListener(new View.OnTouchListener() {   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
