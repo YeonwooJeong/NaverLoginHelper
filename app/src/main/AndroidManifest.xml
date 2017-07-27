@@ -31,12 +31,14 @@
             android:name="com.yonoo.naverloginhelper.DBActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"
+            android:icon="@drawable/icon"
             android:launchMode="singleTask"></activity>
 
         <activity
             android:name="com.yonoo.naverloginhelper.ListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme"
+            android:icon="@drawable/icon"
             android:launchMode="singleTask"></activity>
 
 
