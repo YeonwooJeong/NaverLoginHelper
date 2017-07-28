@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class DBActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper( DBActivity.this, "LOGIN", null, 1);
         dbHelper.testDB();
+
+
 
         listView = (ListView) findViewById(R.id.list_view);
         // ListView를 보여준다.
@@ -63,7 +66,7 @@ public class DBActivity extends AppCompatActivity {
         });
     }
 
-    public void DeleteList(int position){
+    public void DeleteList(int position, DBHelper dbHelper){
 
         int count, checked ;
 //        count = listView.getAdapter().getCount();
@@ -71,10 +74,12 @@ public class DBActivity extends AppCompatActivity {
         if (position > 0) {
             // 현재 선택된 아이템의 position 획득.
             checked = listView.getCheckedItemPosition();
+            Toast.makeText(getApplicationContext(),"checked"+checked,Toast.LENGTH_SHORT).show();
 
             if (checked > -1 && checked < position) {
                 // 아이템 삭제
-                dbHelper.delete(position);
+                System.out.println("position 위치" + checked);
+                dbHelper.delete(checked);
 
                 // listview 선택 초기화.
                 listView.clearChoices();
@@ -92,13 +97,14 @@ public class DBActivity extends AppCompatActivity {
             dbHelper = new DBHelper(DBActivity.this, "TEST", null, 1);
         }
         // 1. Person 데이터를 모두 가져온다.
-        List list = dbHelper.getAllData();
+        final List list = dbHelper.getAllData();
         // 2. ListView에 Person 데이터를 모두 보여준다.
         listView.setAdapter(new LoginListAdapter(list, DBActivity.this));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-
+                String listPosition = list.get(position).toString();
+                Toast.makeText(getApplicationContext(),"포지션"+listPosition,Toast.LENGTH_SHORT).show();
                 // get TextView's Text.
 //                        String strText = (String) parent.getItemAtPosition(position) ;
 
@@ -106,6 +112,13 @@ public class DBActivity extends AppCompatActivity {
             }
         });
     }
+    //액티비티가 종료 될 때 디비를 닫아준다
+    @Override
+    protected void onDestroy() {
+        dbHelper.close();
+        super.onDestroy();
+    }
+
 
 
 }

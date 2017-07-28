@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -45,6 +46,12 @@ class LoginListAdapter extends BaseAdapter {
         return position;
     }
 
+    public void bindView(View view, Context context, Cursor cursor) {
+        ((TextView) view).setText(cursor.getString(0) + " / " + cursor.getString(1));
+    }
+
+
+
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder = null;
@@ -55,6 +62,7 @@ class LoginListAdapter extends BaseAdapter {
 
             ((LinearLayout) convertView).setGravity(LinearLayout.HORIZONTAL);
 
+
             Button delete = new Button(context);
             delete.setText(R.string.delete);
             delete.setTextSize(13);
@@ -62,8 +70,8 @@ class LoginListAdapter extends BaseAdapter {
             delete.setOnClickListener(
                     new Button.OnClickListener() {
                         public void onClick(View v) {
-                            System.out.println("Position"+position);
-                            dbActivity.DeleteList(position);
+                            dbHelper = new DBHelper(dbActivity, "LOGIN", null, 1);
+                            dbActivity.DeleteList(position,dbHelper);
                         }
                     }
             );
@@ -93,7 +101,7 @@ class LoginListAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        System.out.println("position" + position);
+
 
         holder.tv_id.setTextSize(20);
         holder.tv_id.setText(login.get_id() + "");

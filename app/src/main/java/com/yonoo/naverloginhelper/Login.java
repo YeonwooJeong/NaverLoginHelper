@@ -9,6 +9,11 @@ public class Login {
         return _id;
     }
 
+    public int get_id(int position) {
+        _id = position;
+        return _id;
+    }
+
     public String getId() {
         return id;
     }
@@ -16,6 +21,7 @@ public class Login {
     public String getPw() {
         return pw;
     }
+
 
 
     public void set_id(int _id) {
