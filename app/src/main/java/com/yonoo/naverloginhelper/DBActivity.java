@@ -15,7 +15,8 @@ import java.util.List;
 public class DBActivity extends AppCompatActivity {
 
     private Button btnInsertDatabase,btnSelectAllData;
-    private ListView listView;
+//    private ListView listView;
+    public static ListView listView;
     private DBHelper dbHelper;
 
 
@@ -66,29 +67,29 @@ public class DBActivity extends AppCompatActivity {
         });
     }
 
-    public void DeleteList(int position, DBHelper dbHelper){
-
-        int count, checked ;
-//        count = listView.getAdapter().getCount();
-
-        if (position > 0) {
-            // 현재 선택된 아이템의 position 획득.
-            checked = listView.getCheckedItemPosition();
-            Toast.makeText(getApplicationContext(),"checked"+checked,Toast.LENGTH_SHORT).show();
-
-            if (checked > -1 && checked < position) {
-                // 아이템 삭제
-                System.out.println("position 위치" + checked);
-                dbHelper.delete(checked);
-
-                // listview 선택 초기화.
-                listView.clearChoices();
-
-                // listview 갱신.
-                SelectList();
-            }
-        }
-    }
+//    public void DeleteList(int position, DBHelper dbHelper){
+//
+//        int count, checked ;
+////        count = listView.getAdapter().getCount();
+//
+//        if (position > 0) {
+//            // 현재 선택된 아이템의 position 획득.
+//            checked = listView.getCheckedItemPosition();
+//            Toast.makeText(getApplicationContext(),"checked"+checked,Toast.LENGTH_SHORT).show();
+//
+//            if (checked > -1 && checked < position) {
+//                // 아이템 삭제
+//                System.out.println("position 위치" + checked);
+//                dbHelper.delete(position);
+//
+//                // listview 선택 초기화.
+//                listView.clearChoices();
+//
+//                // listview 갱신.
+//                SelectList();
+//            }
+//        }
+//    }
 
     public void SelectList(){
         listView.setVisibility(View.VISIBLE);

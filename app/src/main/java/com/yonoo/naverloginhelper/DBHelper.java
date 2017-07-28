@@ -43,12 +43,17 @@ public class DBHelper extends SQLiteOpenHelper {
         sb.append(" INSERT INTO LOGIN ( ");
         sb.append(" ID, PW ) ");
         sb.append(" VALUES ( ?, ? ) ");
-        db.execSQL(sb.toString(),
-                new Object[]{
-                        login.getId(),
-                        login.getPw(),
-                        });;
-        Toast.makeText(context, R.string.insert, Toast.LENGTH_SHORT).show();
+        if(login.getId().equals("") || login.getPw().equals("")){
+            Toast.makeText(context, R.string.nodata, Toast.LENGTH_SHORT).show();
+        }else{
+            db.execSQL(sb.toString(),
+                    new Object[]{
+                            login.getId(),
+                            login.getPw(),
+                    });;
+            Toast.makeText(context, R.string.insert, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void delete(int position) {

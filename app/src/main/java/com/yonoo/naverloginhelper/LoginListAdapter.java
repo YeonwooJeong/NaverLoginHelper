@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
+import static com.yonoo.naverloginhelper.DBActivity.listView;
 
 
 class LoginListAdapter extends BaseAdapter {
@@ -31,6 +32,7 @@ class LoginListAdapter extends BaseAdapter {
     public LoginListAdapter(List list, Context context) {
         this.list = list;
         this.context = context;
+        dbActivity = new DBActivity();
     }
 
     public int getCount() {
@@ -71,7 +73,7 @@ class LoginListAdapter extends BaseAdapter {
                     new Button.OnClickListener() {
                         public void onClick(View v) {
                             dbHelper = new DBHelper(dbActivity, "LOGIN", null, 1);
-                            dbActivity.DeleteList(position,dbHelper);
+                            DeleteList(position,dbHelper);
                         }
                     }
             );
@@ -168,6 +170,30 @@ class LoginListAdapter extends BaseAdapter {
         public TextView tv_id;
         public TextView tvId;
         public TextView tvPw;
+    }
+
+    public void DeleteList(int position, DBHelper dbHelper){
+
+        int count, checked ;
+//        count = listView.getAdapter().getCount();
+
+        if (position > 0) {
+            // 현재 선택된 아이템의 position 획득.
+            checked = listView.getCheckedItemPosition();
+//            Toast.makeText(dbActivity,"checked"+checked,Toast.LENGTH_SHORT).show();
+
+            if (checked > -1 && checked < position) {
+                // 아이템 삭제
+                System.out.println("position 위치" + checked);
+                dbHelper.delete(position);
+
+                // listview 선택 초기화.
+                listView.clearChoices();
+
+                // listview 갱신.
+                dbActivity.SelectList();
+            }
+        }
     }
 
 }

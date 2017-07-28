@@ -8,6 +8,7 @@
     <string name="make">Table 생성완료</string>
     <string name="upgrade">버전이 올라갔습니다</string>
     <string name="delete">삭제</string>
+    <string name="nodata">항목을 모두 입력해주세요</string>
 
 
 </resources>
