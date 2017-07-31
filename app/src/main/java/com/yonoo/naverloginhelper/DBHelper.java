@@ -63,11 +63,15 @@ public class DBHelper extends SQLiteOpenHelper {
                     });;
             Toast.makeText(context, R.string.insert, Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void delete(int position) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM LOGIN WHERE _ID=" + position + ";");
+        //????
+//        db.execSQL("DELETE FROM LOGIN WHERE _ID=" + position + ";");
+        //?? ???
+        db.execSQL("DELETE FROM LOGIN WHERE _ID=1;");
         db.close();
 
     }
@@ -87,6 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
             login.setPw(cursor.getString(2));
             list.add(login);
         }
+
         return list;
 
     }
