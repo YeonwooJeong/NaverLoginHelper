@@ -28,7 +28,6 @@ public class ListActivity extends AppCompatActivity {
 
 
         dbHelper = new DBHelper( ListActivity.this, "LOGIN", null, 1);
-        dbHelper.testDB();
 
         listView = (ListView) findViewById(R.id.list_view);
         // ListView를 보여준다.
@@ -57,6 +56,7 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }

@@ -41,8 +41,6 @@
             android:icon="@drawable/icon"
             android:launchMode="singleTask"></activity>
 
-
-
         <service android:name="com.yonoo.naverloginhelper.AlwaysTopServiceNotTouch" />
         <service android:name="com.yonoo.naverloginhelper.AlwaysTopServiceTouch" />
     </application>

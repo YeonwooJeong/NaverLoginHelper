@@ -4,26 +4,39 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 public class DBHelper extends SQLiteOpenHelper {
     private Context context;
-
+    private DBHelper dbHelper;
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         this.context = context;
     }
     @Override public void onCreate(SQLiteDatabase db) {
-
+        try {
+            String DROP_SQL = "drop table if exists LOGIN";
+            db.execSQL(DROP_SQL);
+        } catch(Exception ex) {
+            Log.e(TAG, "Exception in DROP_SQL", ex);
+        }
         StringBuffer sb = new StringBuffer();
         sb.append(" CREATE TABLE LOGIN ( ");
         sb.append(" _ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
         sb.append(" ID TEXT, ");
         sb.append(" PW TEXT ) ");
-        db.execSQL(sb.toString());
+        try {
+            db.execSQL(sb.toString());
+        } catch(Exception ex) {
+            Log.e(TAG, "Exception in CREATE_SQL", ex);
+        }
+
         Toast.makeText(context, R.string.make, Toast.LENGTH_SHORT).show();
     }
 
@@ -33,9 +46,6 @@ public class DBHelper extends SQLiteOpenHelper {
         Toast.makeText(context, R.string.upgrade, Toast.LENGTH_SHORT).show();
     }
 
-    public void testDB() {
-        SQLiteDatabase db = getReadableDatabase();
-    }
 
     public void addLogin(Login login) {
         SQLiteDatabase db = getWritableDatabase();
@@ -53,12 +63,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     });;
             Toast.makeText(context, R.string.insert, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void delete(int position) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM LOGIN WHERE _ID='" + position + "';");
+        db.execSQL("DELETE FROM LOGIN WHERE _ID=" + position + ";");
         db.close();
 
     }
@@ -79,8 +88,8 @@ public class DBHelper extends SQLiteOpenHelper {
             list.add(login);
         }
         return list;
-    }
 
+    }
 
 }
 

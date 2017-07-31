@@ -31,7 +31,6 @@ public class AlwaysTopServiceTouch extends Service {
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 
-			Intent it = new Intent(v.getContext(), DBActivity.class);
 
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:

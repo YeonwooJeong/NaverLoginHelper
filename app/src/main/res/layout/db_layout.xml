@@ -57,8 +57,6 @@
 
 
 
-
-
         <Button
             android:id="@+id/select"
             android:layout_width="0dp"
