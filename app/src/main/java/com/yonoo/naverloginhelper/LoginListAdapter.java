@@ -28,10 +28,10 @@ class LoginListAdapter extends BaseAdapter {
     private DBHelper dbHelper;
     private DBActivity dbActivity;
 
-    public LoginListAdapter(List list, Context context) {
+    public LoginListAdapter(List list, Context context, DBHelper dbHelper) {
         this.list = list;
         this.context = context;
-        dbActivity = new DBActivity();
+        this.dbHelper = dbHelper;
     }
 
     public int getCount() {
@@ -69,11 +69,9 @@ class LoginListAdapter extends BaseAdapter {
             delete.setTextSize(13);
             delete.setPadding(2, 0, 2, 0);
             delete.setOnClickListener(
-                    new Button.OnClickListener() {
+                    new View.OnClickListener() {
                         public void onClick(View v) {
-
-                            dbHelper = new DBHelper(dbActivity, "LOGIN", null, 1);
-                            dbActivity.DeleteList(position,dbHelper);
+                            dbHelper.delete(position);
                         }
                     }
             );

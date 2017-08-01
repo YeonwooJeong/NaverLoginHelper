@@ -44,7 +44,7 @@ public class ListActivity extends AppCompatActivity {
         // 1. Person 데이터를 모두 가져온다.
         List list = dbHelper.getAllData();
         // 2. ListView에 Person 데이터를 모두 보여준다.
-        listView.setAdapter(new LoginListAdapter(list, ListActivity.this));
+        listView.setAdapter(new LoginListAdapter(list, ListActivity.this, dbHelper));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {

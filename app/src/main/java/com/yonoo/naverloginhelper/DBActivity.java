@@ -25,7 +25,7 @@ public class DBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.db_layout);
 
-        dbHelper = new DBHelper( DBActivity.this, "LOGIN", null, 1);
+        dbHelper = new DBHelper( DBActivity.this, "LOGIN.db", null, 1);
 
 
 
@@ -47,7 +47,7 @@ public class DBActivity extends AppCompatActivity {
                 String id = etId.getText().toString();
                 String pw = etPw.getText().toString();
                 if (dbHelper == null) {
-                    dbHelper = new DBHelper(DBActivity.this, "TEST", null, 1);
+                    dbHelper = new DBHelper(DBActivity.this, "LOGIN.db", null, 1);
                 }
                 Login login = new Login();
                 login.setId(id);
@@ -66,28 +66,28 @@ public class DBActivity extends AppCompatActivity {
         });
     }
 
-    public void DeleteList(int position, DBHelper dbHelper){
-        dbHelper.delete(position);
-//        int count, checked ;
-////        count = listView.getAdapter().getCount();
-//
-//        if (position > 0) {
-//            // 현재 선택된 아이템의 position 획득.
-//            checked = listView.getCheckedItemPosition();
-//            Toast.makeText(getApplicationContext(),"checked"+checked,Toast.LENGTH_SHORT).show();
-//
-//            if (checked > -1 && checked < position) {
-//                // 아이템 삭제
-//                System.out.println("position 위치" + checked);
-//                dbHelper.delete(position);
-//
-//                // listview 선택 초기화.
-//                listView.clearChoices();
-//
-//                // listview 갱신.
-//                SelectList();
-//            }
-//        }
+    public void DeleteList(int position){
+//        dbHelper.delete(position);
+        int count, checked ;
+//        count = listView.getAdapter().getCount();
+
+        if (position > 0) {
+            // 현재 선택된 아이템의 position 획득.
+            checked = listView.getCheckedItemPosition();
+            Toast.makeText(getApplicationContext(),"checked"+checked,Toast.LENGTH_SHORT).show();
+
+            if (checked > -1 && checked < position) {
+                // 아이템 삭제
+                System.out.println("position 위치" + checked);
+                dbHelper.delete(position);
+
+                // listview 선택 초기화.
+                listView.clearChoices();
+
+                // listview 갱신.
+                SelectList();
+            }
+        }
     }
 
     public void SelectList(){
@@ -99,7 +99,7 @@ public class DBActivity extends AppCompatActivity {
         // 1. Person 데이터를 모두 가져온다.
         final List list = dbHelper.getAllData();
         // 2. ListView에 Person 데이터를 모두 보여준다.
-        listView.setAdapter(new LoginListAdapter(list, DBActivity.this));
+        listView.setAdapter(new LoginListAdapter(list, DBActivity.this, dbHelper));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
