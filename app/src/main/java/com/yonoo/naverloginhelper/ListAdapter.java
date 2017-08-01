@@ -3,13 +3,13 @@ package com.yonoo.naverloginhelper;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,13 +19,13 @@ import java.util.List;
 import static android.content.Context.CLIPBOARD_SERVICE;
 
 
-class LoginListAdapter extends BaseAdapter {
+class ListAdapter extends BaseAdapter {
     int i = 0;
     private List list;
     private Context context;
     private DBHelper dbHelper;
 
-    public LoginListAdapter(List list, Context context, DBHelper dbHelper) {
+    public ListAdapter(List list, Context context, DBHelper dbHelper) {
         this.list = list;
         this.context = context;
         this.dbHelper = dbHelper;
@@ -56,34 +56,6 @@ class LoginListAdapter extends BaseAdapter {
             ((LinearLayout) convertView).setGravity(LinearLayout.HORIZONTAL);
 
 
-            Button delete = new Button(context);
-            delete.setText(R.string.delete);
-            delete.setTextSize(13);
-            delete.setPadding(2, 0, 2, 0);
-            delete.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View v) {
-                            dbHelper.delete(login.get_id());
-                            int count, checked ;
-                            count = LoginListAdapter.this.getCount() ;
-                            if (count > 0) {
-                                // 현재 선택된 아이템의 position 획득.
-                                checked = position;
-
-                                if (checked > -1 && checked < count) {
-                                    // 아이템 삭제
-                                    list.remove(checked) ;
-
-                                    // listview 갱신.
-                                    LoginListAdapter.this.notifyDataSetChanged();
-                                }
-                            }
-
-                        }
-                    }
-            );
-
-
             TextView tvId = new TextView(context);
             tvId.setPadding(10, 0, 20, 0);
             tvId.setGravity(Gravity.LEFT);
@@ -99,7 +71,6 @@ class LoginListAdapter extends BaseAdapter {
             ((LinearLayout) convertView).addView(tvId);
             ((LinearLayout) convertView).addView(tvName);
             ((LinearLayout) convertView).addView(tvPw);
-            ((LinearLayout) convertView).addView(delete);
             holder = new Holder();
             holder.tv_id = tvId;
             holder.tvId = tvName;
@@ -110,13 +81,13 @@ class LoginListAdapter extends BaseAdapter {
         }
 
 
-        holder.tv_id.setTextSize(15);
-        holder.tv_id.setText(position+1 + "");
-//        holder.tv_id.setText(login.get_id() + "");
+        holder.tv_id.setTextSize(23);
+        holder.tv_id.setText(" - ");
+//        holder.tv_id.setText(position+1 + "");
 
 
-        holder.tvId.setTextSize(15);
-        holder.tvId.setText(login.getId() + "   |");
+        holder.tvId.setTextSize(23);
+        holder.tvId.setText(login.getId() + "  |");
         final String id = login.getId();
         holder.tvId.setOnTouchListener(new View.OnTouchListener() {   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
 
@@ -128,12 +99,10 @@ class LoginListAdapter extends BaseAdapter {
                     ClipData clipData = ClipData.newPlainText("ID", id);
                     clipboardManager.setPrimaryClip(clipData);
                     Toast.makeText(context, "ID가 복사되었습니다.", Toast.LENGTH_SHORT).show();
-
-                    //백그라운드전환
-//                    Intent intent = new Intent();
-//                    intent.setAction(Intent.ACTION_MAIN);
-//                    intent.addCategory(Intent.CATEGORY_HOME);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    context.startActivity(intent);
 
                 }
 
@@ -143,8 +112,8 @@ class LoginListAdapter extends BaseAdapter {
             }
         });
 
-        holder.tvPw.setTextSize(15);
-        holder.tvPw.setText(login.getPw() + "   ");
+        holder.tvPw.setTextSize(23);
+        holder.tvPw.setText(login.getPw() + "    ");
         final String pw = login.getPw();
         holder.tvPw.setOnTouchListener(new View.OnTouchListener() {   //터치 이벤트 리스너 등록(누를때와 뗐을때를 구분)
 
@@ -156,12 +125,10 @@ class LoginListAdapter extends BaseAdapter {
                     ClipData clipData = ClipData.newPlainText("PW", pw);
                     clipboardManager.setPrimaryClip(clipData);
                     Toast.makeText(context, "PW가 복사되었습니다.", Toast.LENGTH_SHORT).show();
-
-                    //백그라운드전환
-//                    Intent intent = new Intent();
-//                    intent.setAction(Intent.ACTION_MAIN);
-//                    intent.addCategory(Intent.CATEGORY_HOME);
-//                    context.startActivity(intent);
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    context.startActivity(intent);
                 }
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {

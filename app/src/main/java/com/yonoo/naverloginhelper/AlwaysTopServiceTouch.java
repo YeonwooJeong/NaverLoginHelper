@@ -49,6 +49,7 @@ public class AlwaysTopServiceTouch extends Service {
 
 						Intent intent = new Intent(context, ListActivity.class);
 						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						intent.putExtra("boolean", true );
 						context.startActivity(intent);
 
 

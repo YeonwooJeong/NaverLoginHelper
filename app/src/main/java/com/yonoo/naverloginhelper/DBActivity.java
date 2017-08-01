@@ -19,7 +19,6 @@ public class DBActivity extends AppCompatActivity {
      ListView listView;
     private DBHelper dbHelper;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +65,6 @@ public class DBActivity extends AppCompatActivity {
         });
     }
 
-    public void DeleteList(int position){
-        dbHelper.delete(position);
-        SelectList();
-
-    }
-
     public void SelectList(){
         listView.setVisibility(View.VISIBLE);
         // DB Helper가 Null이면 초기화 시켜준다.
@@ -94,6 +87,7 @@ public class DBActivity extends AppCompatActivity {
             }
         });
     }
+
     //액티비티가 종료 될 때 디비를 닫아준다
     @Override
     protected void onDestroy() {
