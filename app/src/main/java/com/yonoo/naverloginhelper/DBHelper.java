@@ -15,6 +15,7 @@ import static android.content.ContentValues.TAG;
 public class DBHelper extends SQLiteOpenHelper {
     private Context context;
     private DBHelper dbHelper;
+
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         this.context = context;
@@ -68,11 +69,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void delete(int position) {
         SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM LOGIN WHERE _ID=1;");
+        db.close();
         //????
 //        db.execSQL("DELETE FROM LOGIN WHERE _ID=" + position + ";");
         //?? ???
-        db.execSQL("DELETE FROM LOGIN WHERE _ID=1;");
-        db.close();
+
 
     }
 
