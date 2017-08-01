@@ -71,7 +71,9 @@ class LoginListAdapter extends BaseAdapter {
             delete.setOnClickListener(
                     new View.OnClickListener() {
                         public void onClick(View v) {
-                            dbHelper.delete(position);
+                            System.out.println("position"+position);
+//                            dbActivity.DeleteList(login.get_id());
+                            dbHelper.delete(login.get_id());
                         }
                     }
             );
@@ -104,7 +106,8 @@ class LoginListAdapter extends BaseAdapter {
 
 
         holder.tv_id.setTextSize(20);
-        holder.tv_id.setText(login.get_id() + "");
+        holder.tv_id.setText(position+1 + "");
+//        holder.tv_id.setText(login.get_id() + "");
 
 
         holder.tvId.setTextSize(15);

@@ -67,14 +67,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-public void delete(int position) {
-    SQLiteDatabase db = getWritableDatabase();
-    db.execSQL("DELETE FROM LOGIN WHERE _ID=" + position + ";");
+    public void delete(int position) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM LOGIN WHERE _ID=" + position + ";");
 //    db.execSQL("DELETE FROM LOGIN WHERE _ID=2;");
-    db.close();
-
-
-}
+        db.close();
+    }
 
 
     public List getAllData() {
