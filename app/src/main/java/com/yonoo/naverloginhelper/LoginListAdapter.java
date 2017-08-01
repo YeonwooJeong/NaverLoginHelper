@@ -74,6 +74,24 @@ class LoginListAdapter extends BaseAdapter {
                             System.out.println("position"+position);
 //                            dbActivity.DeleteList(login.get_id());
                             dbHelper.delete(login.get_id());
+//                            int count, checked ;
+//                            count = LoginListAdapter.this.getCount() ;
+//                            if (count > 0) {
+//                                // 현재 선택된 아이템의 position 획득.
+//                                checked = position;
+//
+//                                if (checked > -1 && checked < count) {
+//                                    // 아이템 삭제
+//                                    list.remove(checked) ;
+//
+//                                    // listview 선택 초기화.
+//                                    dbActivity.listView.clearChoices();
+//
+//                                    // listview 갱신.
+//                                    LoginListAdapter.this.notifyDataSetChanged();
+//                                }
+//                            }
+
                         }
                     }
             );
