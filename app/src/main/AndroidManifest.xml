@@ -43,6 +43,7 @@
 
         <service android:name="com.yonoo.naverloginhelper.AlwaysTopServiceNotTouch" />
         <service android:name="com.yonoo.naverloginhelper.AlwaysTopServiceTouch" />
+
     </application>
 
 </manifest>
